@@ -9,4 +9,3 @@ class Bot(BaseAppModel):
     bot_id: int
     handle: str
     prompt: str = ""
-    chats: Optional[List[Chat]] = []

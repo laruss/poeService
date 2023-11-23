@@ -48,6 +48,9 @@ After the service is up, set the API token for `poe.com` using the following API
 
 With `poeService` running, you can now interact with the `poe.com` API via the proxy. The service acts as a middleware, handling requests and responses to and from `poe.com`.
 
+Service has OpenAPI documentation, accessible at `http://localhost:5002/openapi/` (change 5002 to your port).
+This provides an interactive guide for all the available features of the `poeService`.
+
 ### Links to used libraries
 
 - [poe-api-wrapper](https://github.com/snowby666/poe-api-wrapper)
@@ -58,13 +61,14 @@ With `poeService` running, you can now interact with the `poe.com` API via the p
 
 ### TODO
 
-- [ ] Migrate to Flask-RestX
 - [ ] Remove dependency on poe-api-wrapper
 - [ ] Refactor code not to use mongo, but session based storage
 
 ### OpenAPI Documentation
 
-Explore the API endpoints and their functionalities in detail via the OpenAPI documentation, accessible at `<container_host>/openapi`. This provides an interactive guide for all the available features of the `poeService`.
+Explore the API endpoints and their functionalities in detail via the OpenAPI documentation, accessible at
+`http://localhost:5002/openapi/` (change 5002 to your port).
+This provides an interactive guide for all the available features of the `poeService`.
 
 ### Contribution
 

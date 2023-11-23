@@ -1,0 +1,19 @@
+{
+  "post": {
+    "tags": [
+      "Agent"
+    ],
+    "summary": "Connect agent to poe api",
+    "responses": {
+      "204": {
+        "description": "Agent connected"
+      },
+      "403": {
+        "description": "Poe api token is not set"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}

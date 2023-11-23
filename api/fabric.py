@@ -1,9 +1,10 @@
 import flask
 from flask_cors import CORS
 
-from api.openapi import swaggerui_blueprint
 # do not remove this import
 from api.poe_agent import agent
+
+from api.openapi import swaggerui_blueprint
 
 from api.extensions import mongo
 from api.routes.bot import bot_bp

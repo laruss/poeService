@@ -1,0 +1,19 @@
+{
+  "post": {
+    "tags": [
+      "Agent"
+    ],
+    "summary": "Disconnect agent from poe api",
+    "responses": {
+      "204": {
+        "description": "Agent disconnected"
+      },
+      "403": {
+        "description": "Poe api token is not set"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}

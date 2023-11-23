@@ -1,0 +1,27 @@
+{
+    "type": "object",
+  "properties": {
+    "chat_id": {
+      "type": "integer"
+    },
+    "chat_code": {
+      "type": "string"
+    },
+    "poe_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "bot_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "chat_id",
+    "chat_code",
+    "poe_id",
+    "title",
+    "bot_id"
+  ]
+}

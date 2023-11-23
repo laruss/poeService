@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "api_token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "api_token"
+  ]
+}

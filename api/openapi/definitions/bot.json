@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "poe_id": {
+      "type": "string"
+    },
+    "bot_id": {
+      "type": "integer"
+    },
+    "handle": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "poe_id",
+    "bot_id",
+    "handle",
+    "prompt"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "botName",
+  "in": "path",
+  "description": "Bot name",
+  "required": true,
+  "type": "string"
+}

@@ -1,0 +1,53 @@
+{
+  "get": {
+    "tags": [
+      "Bot"
+    ],
+    "summary": "Get all bots information",
+    "description": "Get all bots information in local database (not from Poe api)",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Bot information",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "../definitions/bot.json"
+          }
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "Bot"
+    ],
+    "summary": "Delete bots",
+    "description": "Delete all bots from local database (Not from poe API)",
+    "responses": {
+      "204": {
+        "description": "Bot deleted"
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}

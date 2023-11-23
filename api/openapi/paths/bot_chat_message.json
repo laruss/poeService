@@ -1,0 +1,38 @@
+{
+  "delete": {
+    "tags": [
+      "Chat By ID"
+    ],
+    "summary": "Delete Message By ID",
+    "description": "Delete Message By ID",
+    "parameters": [
+      {
+        "$ref": "../definitions/bot_name_path.json"
+      },
+      {
+        "$ref": "../definitions/chat_id_path.json"
+      },
+      {
+        "name": "messageId",
+        "in": "path",
+        "description": "Message ID",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "Message deleted"
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}

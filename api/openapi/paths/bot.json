@@ -1,0 +1,134 @@
+{
+  "get": {
+    "tags": [
+      "Bot"
+    ],
+    "summary": "Get bot information",
+    "description": "Get bot information from local database (Not from poe API)",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Bot information",
+        "schema": {
+          "$ref": "../definitions/bot.json"
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "Bot"
+    ],
+    "summary": "Init all bots from poe API",
+    "description": "Init all bots from poe API (adds bots to local database)",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "All initialized bots information",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "../definitions/bot.json"
+          }
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "put": {
+    "tags": [
+      "Bot"
+    ],
+    "summary": "Init bot from poe API",
+    "description": "Init bot from poe API (adds bot to local database)",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Bot information",
+        "schema": {
+          "$ref": "../definitions/bot.json"
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "patch": {
+    "tags": [
+      "Bot"
+    ],
+    "summary": "Update bot from poe API",
+    "description": "Update bot from poe API (updates bot in local database)",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Bot information",
+        "schema": {
+          "$ref": "../definitions/bot.json"
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "Bot"
+    ],
+    "summary": "Delete bot",
+    "description": "Delete bot from local database (Not from poe API)",
+    "responses": {
+      "204": {
+        "description": "Bot deleted"
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}

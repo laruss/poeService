@@ -1,0 +1,48 @@
+{
+  "post": {
+    "tags": [
+      "New Chat"
+    ],
+    "summary": "Send message to the new chat",
+    "description": "Send message to chat (streamer). Messages and new chat won't be saved to the local database, you need to update chat manually",
+    "produces": [
+      "text/plain"
+    ],
+    "parameters": [
+      {
+        "$ref": "../definitions/bot_name_path.json"
+      },
+      {
+        "name": "message",
+        "in": "body",
+        "description": "Message to send",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Stream message by bot",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}

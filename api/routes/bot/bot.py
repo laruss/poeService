@@ -15,6 +15,7 @@ bot_bp.register_blueprint(chat_bp)
 @bot_bp.before_request
 @api_token_is_set_wrapper
 def before_request():
+    """ this is needed to check if the api token is set before every request """
     pass
 
 

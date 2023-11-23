@@ -1,0 +1,151 @@
+{
+  "get": {
+    "tags": [
+      "All Chats"
+    ],
+    "summary": "Get all chats",
+    "description": "Get all chats from the local database",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "$ref": "../definitions/bot_name_path.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A list of chats",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "../definitions/chat.json"
+          }
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "put": {
+    "tags": [
+      "All Chats"
+    ],
+    "summary": "Init all bot chats",
+    "description": "Init all bot chats from the poe api and save them to the local database",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "$ref": "../definitions/bot_name_path.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A list of chats",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "../definitions/chat.json"
+          }
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "patch": {
+    "tags": [
+      "All Chats"
+    ],
+    "summary": "Update all bot chats from the poe api",
+    "description": "Update all bot chats from the poe api and save them to the local database",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "$ref": "../definitions/bot_name_path.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A list of chats",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "../definitions/chat.json"
+          }
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "All Chats"
+    ],
+    "summary": "Delete all bot chats",
+    "description": "Delete all bot chats from the local database",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "$ref": "../definitions/bot_name_path.json"
+      },
+      {
+        "name": "in_poe",
+        "in": "query",
+        "description": "Delete all bot chats also from the poe api",
+        "required": false,
+        "type": "boolean"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A list of chats",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Poe API key is not set"
+      },
+      "404": {
+        "description": "Bot not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}
