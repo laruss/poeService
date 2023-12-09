@@ -3,7 +3,7 @@ services:
   poe:
     build: .
     ports:
-      - "5002:5002"
+      - "${FLASK_APP_PORT}:${FLASK_APP_PORT}"
     environment:
       - FLASK_ENV=development
       - FLASK_APP=app.py
@@ -15,7 +15,7 @@ services:
   mongo:
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - "${DB_PORT}:{DB_PORT}"
     volumes:
       - mongo-data:/data/db
 
