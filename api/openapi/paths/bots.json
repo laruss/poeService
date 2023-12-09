@@ -1,33 +1,27 @@
 {
     "get": {
         "tags": [
-            "All Chats"
+            "Bots"
         ],
-        "summary": "Get all chats",
-        "description": "Get all chats from the local database",
+        "summary": "Get bots information",
+        "description": "Get all bots information from local database (Not from poe API)",
         "produces": [
             "application/json"
         ],
         "parameters": [
             {
                 "$ref": "../definitions/session-id.json"
-            },
-            {
-                "$ref": "../definitions/bot_name_path.json"
             }
         ],
         "responses": {
             "200": {
-                "description": "A list of chats",
+                "description": "Bots information",
                 "schema": {
                     "type": "array",
                     "items": {
-                        "$ref": "../definitions/chat.json"
+                        "$ref": "../definitions/bot.json"
                     }
                 }
-            },
-            "400": {
-                "$ref": "../openapi.json#/responses/400"
             },
             "403": {
                 "$ref": "../openapi.json#/responses/403"
@@ -37,28 +31,34 @@
             }
         }
     },
-    "patch": {
+    "post": {
         "tags": [
-            "All Chats"
+            "Bots"
         ],
-        "summary": "Update all bot chats from the poe api",
-        "description": "Update all bot chats from the poe api and save them to the local database",
+        "summary": "Create Bot",
+        "description": "Create bot via poe API (adds bot to local database)",
         "produces": [
             "application/json"
         ],
         "parameters": [
             {
-                "$ref": "../definitions/bot_name_path.json"
+                "$ref": "../definitions/session-id.json"
+            },
+            {
+                "name": "data",
+                "in": "body",
+                "description": "Bot data",
+                "required": true,
+                "schema": {
+                    "$ref": "../definitions/bot_create_validator.json"
+                }
             }
         ],
         "responses": {
             "200": {
-                "description": "A list of chats",
+                "description": "All initialized bots information",
                 "schema": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "../definitions/chat.json"
-                    }
+                    "$ref": "../definitions/bot.json"
                 }
             },
             "400": {

@@ -1,11 +1,52 @@
 {
-  "type": "object",
-  "properties": {
-    "api_token": {
-      "type": "string"
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string"
+            },
+            "freeLimitResetTime": {
+                "type": "integer"
+            },
+            "freeLimitBalance": {
+                "type": "integer"
+            },
+            "freeLimit": {
+                "type": "integer"
+            },
+            "freeLimitResetPeriod": {
+                "type": "string"
+            },
+            "paidLimitBalance": {
+                "type": "integer"
+            },
+            "paidLimitResetPeriod": {
+                "type": "string"
+            },
+            "paidLimit": {
+                "type": "integer"
+            },
+            "paidLimitResetTime": {
+                "type": "integer"
+            },
+            "bot": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "limitedAccessType": {
+                        "type": "string"
+                    }
+                }
+            },
+            "__typename": {
+                "type": "string"
+            }
+        }
     }
-  },
-  "required": [
-    "api_token"
-  ]
 }

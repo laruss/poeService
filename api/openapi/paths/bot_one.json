@@ -1,0 +1,113 @@
+{
+    "get": {
+        "tags": [
+            "Bots"
+        ],
+        "summary": "Get one bot data",
+        "description": "Get one bot data",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Bot data",
+                "schema": {
+                    "$ref": "../definitions/bot.json"
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
+    },
+    "patch": {
+        "tags": [
+            "Bots"
+        ],
+        "summary": "Update bot data from API or body",
+        "description": "Update bot data. If body is empty, bot will be updated from API, else - from body to API",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
+            },
+            {
+                "name": "body",
+                "in": "body",
+                "description": "Bot data",
+                "required": false,
+                "schema": {
+                    "$ref": "../definitions/bot_edit_validator.json"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Bot data",
+                "schema": {
+                    "$ref": "../definitions/bot.json"
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
+    },
+    "delete": {
+        "tags": [
+            "Bots"
+        ],
+        "summary": "Delete bot",
+        "description": "Delete bot (in API and in DB)",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
+            }
+        ],
+        "responses": {
+            "204": {
+                "description": "Bot deleted"
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
+    }
+}

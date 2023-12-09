@@ -23,26 +23,31 @@ To use `poeService`, follow these steps:
    ```sh
    cd poeService
    ```
+   
+3. **Copy .env.sample to .env:**
+   ```sh
+   cp .env.sample .env
+   ```
+   
+4. **Edit .env:**
+   ```sh
+    nano .env # or use your favorite editor
+    ```
 
-3. **Start the Service Using Docker Compose:**
+5. **Start the Service Using Docker Compose:**
    Use the provided `docker-compose.yml` file to start the service along with MongoDB.
    ```sh
    docker-compose up -d
    ```
    This will start the service and MongoDB in detached mode. The service will be accessible at `http://localhost:5002` by default.
 
-### Configuring the API Token
+### Using Rest API with session id
 
-After the service is up, set the API token for `poe.com` using the following API call:
+After the service is up, set the API Session in headers. All the requests must have the following header:
 
-- **Endpoint**: `PUT /settings`
-- **Payload**: 
-  ```json
-  {
-    "api_token": "<YOUR_POE_TOKEN>"
-  }
-  ```
-- This token will be stored in MongoDB and used for subsequent API calls to `poe.com`.
+ ```sh
+ curl -X POST "http://localhost:<PORT>/settings" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"session-id\": \"<your_token>\"}"
+ ```
 
 ### Usage
 
@@ -53,16 +58,11 @@ This provides an interactive guide for all the available features of the `poeSer
 
 ### Links to used libraries
 
-- [poe-api-wrapper](https://github.com/snowby666/poe-api-wrapper)
-- [pydantic-mongo](https://github.com/laruss/pydantic-mongo)
 - [python-decouple](https://github.com/HBNetwork/python-decouple)
 - [flask](https://flask.palletsprojects.com/en/3.0.x/)
+- [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/)
+- [pymongo](https://pymongo.readthedocs.io/en/stable/)
 - [pydantic-2.4.2](https://docs.pydantic.dev/latest/)
-
-### TODO
-
-- [ ] Remove dependency on poe-api-wrapper
-- [ ] Refactor code not to use mongo, but session based storage
 
 ### OpenAPI Documentation
 

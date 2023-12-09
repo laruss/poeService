@@ -1,203 +1,205 @@
 {
-  "get": {
-    "tags": [
-      "Chat By ID"
-    ],
-    "summary": "Get chat info",
-    "description": "Get chat info from local database",
-    "produces": [
-      "application/json"
-    ],
-    "parameters": [
-      {
-        "$ref": "../definitions/bot_name_path.json"
-      },
-      {
-        "$ref": "../definitions/chat_id_path.json"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Chat data",
-        "schema": {
-          "$ref": "../definitions/chat.json"
-        }
-      },
-      "403": {
-        "description": "Poe API key is not set"
-      },
-      "404": {
-        "description": "Bot not found"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
-    }
-  },
-  "patch": {
-    "tags": [
-      "Chat By ID"
-    ],
-    "summary": "Update one chat from the poe api",
-    "description": "Update chat from the poe api and save it to the local database",
-    "produces": [
-      "application/json"
-    ],
-    "parameters": [
-      {
-        "$ref": "../definitions/bot_name_path.json"
-      },
-      {
-        "$ref": "../definitions/chat_id_path.json"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Chat data",
-        "schema": {
-          "$ref": "../definitions/chat.json"
-        }
-      },
-      "403": {
-        "description": "Poe API key is not set"
-      },
-      "404": {
-        "description": "Bot not found"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
-    }
-  },
-  "delete": {
-    "tags": [
-      "Chat By ID"
-    ],
-    "summary": "Delete chat",
-    "description": "Delete one chat from the local database and from the poe api (if in_poe is true)",
-    "produces": [
-      "application/json"
-    ],
-    "parameters": [
-      {
-        "$ref": "../definitions/bot_name_path.json"
-      },
-      {
-        "$ref": "../definitions/chat_id_path.json"
-      },
-      {
-        "name": "in_poe",
-        "in": "query",
-        "description": "Delete chat also from the poe api",
-        "required": false,
-        "type": "boolean"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Chat data",
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string"
+    "get": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Get chat info",
+        "description": "Get chat info from local database",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
             }
-          }
-        }
-      },
-      "403": {
-        "description": "Poe API key is not set"
-      },
-      "404": {
-        "description": "Bot not found"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
-    }
-  },
-  "post": {
-    "tags": [
-      "Chat By ID"
-    ],
-    "summary": "Send message to chat",
-    "description": "Send message to chat (streamer). Messages won't be saved to the local database, you need to update chat manually",
-    "produces": [
-      "text/plain"
-    ],
-    "parameters": [
-      {
-        "$ref": "../definitions/bot_name_path.json"
-      },
-      {
-        "$ref": "../definitions/chat_id_path.json"
-      },
-      {
-        "name": "message",
-        "in": "body",
-        "description": "Message to send",
-        "required": true,
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string"
+        ],
+        "responses": {
+            "200": {
+                "description": "Chat data",
+                "schema": {
+                    "$ref": "../definitions/chat.json"
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
             }
-          }
         }
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Stream message by bot",
-        "schema": {
-          "type": "string"
+    },
+    "patch": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Update one chat from the poe api",
+        "description": "Update chat from the poe api and save it to the local database",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Chat data",
+                "schema": {
+                    "$ref": "../definitions/chat.json"
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
         }
-      },
-      "403": {
-        "description": "Poe API key is not set"
-      },
-      "404": {
-        "description": "Bot not found"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
+    },
+    "delete": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Delete chat",
+        "description": "Delete one chat from the local database and from the poe api",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
+            }
+        ],
+        "responses": {
+            "204": {
+                "description": "Chat deleted"
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
+    },
+    "post": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Send message to chat",
+        "description": "Send message to chat (streamer). Messages will be saved to the local database (human and bot messages)",
+        "produces": [
+            "text/event-stream"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
+            },
+            {
+                "name": "message",
+                "in": "body",
+                "description": "Message to send",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Stream message by bot",
+                "schema": {
+                    "type": "string",
+                    "example": "{\"messageId\": 0, \"state\": \"ABCDEF\", \"text\": \"ABCDEFGHIJK\", \"author\": \"ABCD\", \"creationTime\": 0, \"contentType\": \"ABCDEFG\", \"attachmentTruncationState\": \"ABCDEFGHIJKLMNOPQRSTUVWXY\", \"suggestedReplies\": [{}, null, [], \"ABCDEFGHIJKLMNOPQRSTUVWXYZABC\", null], \"__isNode\": \"ABCDEFGHIJKLMNOPQRSTUV\", \"id\": \"ABCD\", \"sourceType\": \"ABCDEFGHIJKLMNOPQRSTUVWX\", \"attachments\": [false, []], \"hasCitations\": false, \"vote\": [], \"__typename\": [], \"textLengthOnCancellation\": 0.0, \"clientNonce\": 0, \"humanMessage\": \"ABCDEFGHIJK\", \"chat\": \"ABCDEFGHIJKLMNOP\"}"
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
+    },
+    "put": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Retry last message",
+        "description": "Retry last message to chat (streamer). Message will be saved to the local database",
+        "produces": [
+            "text/plain"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "$ref": "../definitions/session-id.json"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Stream message by bot",
+                "schema": {
+                    "type": "string",
+                    "example": "{\"messageId\": 0, \"state\": \"ABCDEF\", \"text\": \"ABCDEFGHIJK\", \"author\": \"ABCD\", \"creationTime\": 0, \"contentType\": \"ABCDEFG\", \"attachmentTruncationState\": \"ABCDEFGHIJKLMNOPQRSTUVWXY\", \"suggestedReplies\": [{}, null, [], \"ABCDEFGHIJKLMNOPQRSTUVWXYZABC\", null], \"__isNode\": \"ABCDEFGHIJKLMNOPQRSTUV\", \"id\": \"ABCD\", \"sourceType\": \"ABCDEFGHIJKLMNOPQRSTUVWX\", \"attachments\": [false, []], \"hasCitations\": false, \"vote\": [], \"__typename\": [], \"textLengthOnCancellation\": 0.0, \"clientNonce\": 0, \"humanMessage\": \"ABCDEFGHIJK\", \"chat\": \"ABCDEFGHIJKLMNOP\"}"
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
     }
-  },
-  "put": {
-    "tags": [
-      "Chat By ID"
-    ],
-    "summary": "Retry last message",
-    "description": "Retry last message to chat (streamer). Message won't be saved to the local database, you need to update chat manually",
-    "produces": [
-      "text/plain"
-    ],
-    "parameters": [
-      {
-        "$ref": "../definitions/bot_name_path.json"
-      },
-      {
-        "$ref": "../definitions/chat_id_path.json"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Stream message by bot",
-        "schema": {
-          "type": "string"
-        }
-      },
-      "403": {
-        "description": "Poe API key is not set"
-      },
-      "404": {
-        "description": "Bot not found"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
-    }
-  }
 }

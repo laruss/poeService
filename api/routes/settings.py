@@ -1,16 +1,20 @@
-from flask import Blueprint, request
+import flask
+from flask import Blueprint
 
-from api.controllers.settings import SettingsController
-from api.utils.utils import success_response
+from ..controllers.settings import SettingsController
+from .helpers import api_token_is_set_wrapper
+from ..extensions import poe
 
 settings_bp = Blueprint('settings', __name__, url_prefix='/settings')
 
 
+@settings_bp.before_request
+@api_token_is_set_wrapper
+def before_request():
+    poe.connect(flask.g.get('session_id')) if not poe.is_connected else ...
+
+
 @settings_bp.route('', methods=['GET'])
-def get_settings():
-    return SettingsController().get_settings()
-
-
-@settings_bp.route('', methods=['PUT'])
-def set_settings():
-    return SettingsController().set_settings(request.json)
+@api_token_is_set_wrapper
+def get_limits():
+    return SettingsController().get_limits()

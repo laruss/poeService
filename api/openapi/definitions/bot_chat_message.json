@@ -1,0 +1,118 @@
+{
+    "properties": {
+        "messageId": {
+            "title": "Messageid",
+            "type": "integer"
+        },
+        "state": {
+            "title": "State",
+            "type": "string"
+        },
+        "text": {
+            "title": "Text",
+            "type": "string"
+        },
+        "author": {
+            "title": "Author",
+            "type": "string"
+        },
+        "creationTime": {
+            "title": "Creationtime",
+            "type": "integer"
+        },
+        "contentType": {
+            "title": "Contenttype",
+            "type": "string"
+        },
+        "attachmentTruncationState": {
+            "title": "Attachmenttruncationstate",
+            "type": "string"
+        },
+        "vote": {
+            "default": null,
+            "title": "Vote"
+        },
+        "suggestedReplies": {
+            "items": {},
+            "title": "Suggestedreplies",
+            "type": "array"
+        },
+        "__isNode": {
+            "title": "  Isnode",
+            "type": "string"
+        },
+        "__typename": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "title": "  Typename"
+        },
+        "id": {
+            "title": "Id",
+            "type": "string"
+        },
+        "textLengthOnCancellation": {
+            "anyOf": [
+                {
+                    "type": "integer"
+                },
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "title": "Textlengthoncancellation"
+        },
+        "sourceType": {
+            "title": "Sourcetype",
+            "type": "string"
+        },
+        "attachments": {
+            "items": {},
+            "title": "Attachments",
+            "type": "array"
+        },
+        "clientNonce": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "title": "Clientnonce"
+        },
+        "hasCitations": {
+            "title": "Hascitations",
+            "type": "boolean"
+        }
+    },
+    "required": [
+        "messageId",
+        "state",
+        "text",
+        "author",
+        "creationTime",
+        "contentType",
+        "attachmentTruncationState",
+        "suggestedReplies",
+        "__isNode",
+        "id",
+        "sourceType",
+        "attachments",
+        "hasCitations"
+    ],
+    "title": "MessageData",
+    "type": "object"
+}

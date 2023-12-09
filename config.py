@@ -8,6 +8,7 @@ logging.basicConfig(
 
 root_path = pathlib.Path(__file__).parent.resolve()
 env_config = Config(RepositoryEnv(root_path / ".env"))
+openapi_path = root_path / 'api' / 'openapi'
 
 
 class DbConfig:

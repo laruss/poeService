@@ -1,27 +1,377 @@
 {
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "string"
+    "$defs": {
+        "Creator": {
+            "properties": {
+                "__isNode": {
+                    "title": "  Isnode",
+                    "type": "string"
+                },
+                "isDeleted": {
+                    "title": "Isdeleted",
+                    "type": "boolean"
+                },
+                "profilePhotoUrl": {
+                    "title": "Profilephotourl",
+                    "type": "string"
+                },
+                "fullName": {
+                    "title": "Fullname",
+                    "type": "string"
+                },
+                "nullableHandle": {
+                    "title": "Nullablehandle",
+                    "type": "string"
+                },
+                "id": {
+                    "title": "Id",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "__isNode",
+                "isDeleted",
+                "profilePhotoUrl",
+                "fullName",
+                "nullableHandle",
+                "id"
+            ],
+            "title": "Creator",
+            "type": "object"
+        },
+        "Image": {
+            "properties": {
+                "__typename": {
+                    "title": "  Typename",
+                    "type": "string"
+                },
+                "url": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Url"
+                },
+                "localName": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Localname"
+                }
+            },
+            "required": [
+                "__typename"
+            ],
+            "title": "Image",
+            "type": "object"
+        },
+        "MessageLimit": {
+            "properties": {
+                "shouldShowRemainingMessageCount": {
+                    "title": "Shouldshowremainingmessagecount",
+                    "type": "boolean"
+                },
+                "numMessagesRemaining": {
+                    "title": "Nummessagesremaining",
+                    "type": "null"
+                },
+                "id": {
+                    "title": "Id",
+                    "type": "string"
+                },
+                "canSend": {
+                    "title": "Cansend",
+                    "type": "boolean"
+                },
+                "shouldShowSubscriptionRationale": {
+                    "title": "Shouldshowsubscriptionrationale",
+                    "type": "boolean"
+                },
+                "dailyLimit": {
+                    "title": "Dailylimit",
+                    "type": "null"
+                }
+            },
+            "required": [
+                "shouldShowRemainingMessageCount",
+                "numMessagesRemaining",
+                "id",
+                "canSend",
+                "shouldShowSubscriptionRationale",
+                "dailyLimit"
+            ],
+            "title": "MessageLimit",
+            "type": "object"
+        },
+        "MessageUsageLimit": {
+            "properties": {
+                "balanceTooltipText": {
+                    "title": "Balancetooltiptext",
+                    "type": "null"
+                },
+                "id": {
+                    "title": "Id",
+                    "type": "string"
+                },
+                "canSendMessage": {
+                    "title": "Cansendmessage",
+                    "type": "boolean"
+                },
+                "shouldPromptSubscription": {
+                    "title": "Shouldpromptsubscription",
+                    "type": "boolean"
+                },
+                "shouldShowLimitInfoBanner": {
+                    "title": "Shouldshowlimitinfobanner",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "balanceTooltipText",
+                "id",
+                "canSendMessage",
+                "shouldPromptSubscription",
+                "shouldShowLimitInfoBanner"
+            ],
+            "title": "MessageUsageLimit",
+            "type": "object"
+        }
     },
-    "poe_id": {
-      "type": "string"
+    "properties": {
+        "__isNode": {
+            "title": "  Isnode",
+            "type": "string"
+        },
+        "id": {
+            "title": "Id",
+            "type": "string"
+        },
+        "botId": {
+            "title": "Botid",
+            "type": "integer"
+        },
+        "handle": {
+            "title": "Handle",
+            "type": "string"
+        },
+        "displayName": {
+            "title": "Displayname",
+            "type": "string"
+        },
+        "isSystemBot": {
+            "title": "Issystembot",
+            "type": "boolean"
+        },
+        "deletionState": {
+            "title": "Deletionstate",
+            "type": "string"
+        },
+        "image": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/Image"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "limitedAccessType": {
+            "title": "Limitedaccesstype",
+            "type": "string"
+        },
+        "canUserAccessBot": {
+            "title": "Canuseraccessbot",
+            "type": "boolean"
+        },
+        "followerCount": {
+            "title": "Followercount",
+            "type": "integer"
+        },
+        "monthlyActiveUsers": {
+            "title": "Monthlyactiveusers",
+            "type": "null"
+        },
+        "creator": {
+            "$ref": "#/$defs/Creator"
+        },
+        "description": {
+            "title": "Description",
+            "type": "string"
+        },
+        "poweredBy": {
+            "title": "Poweredby",
+            "type": "string"
+        },
+        "viewerIsFollower": {
+            "title": "Viewerisfollower",
+            "type": "boolean"
+        },
+        "shouldHide": {
+            "title": "Shouldhide",
+            "type": "boolean"
+        },
+        "shareLink": {
+            "title": "Sharelink",
+            "type": "string"
+        },
+        "promptPlaintext": {
+            "title": "Promptplaintext",
+            "type": "string"
+        },
+        "viewerIsCreator": {
+            "title": "Vieweriscreator",
+            "type": "boolean"
+        },
+        "isEligibleForLoggedOutUsage": {
+            "title": "Iseligibleforloggedoutusage",
+            "type": "boolean"
+        },
+        "model": {
+            "title": "Model",
+            "type": "string"
+        },
+        "nickname": {
+            "title": "Nickname",
+            "type": "string"
+        },
+        "uploadFileSizeLimit": {
+            "title": "Uploadfilesizelimit",
+            "type": "integer"
+        },
+        "allowsImageAttachments": {
+            "title": "Allowsimageattachments",
+            "type": "boolean"
+        },
+        "messageLimit": {
+            "$ref": "#/$defs/MessageLimit"
+        },
+        "messageUsageLimit": {
+            "$ref": "#/$defs/MessageUsageLimit"
+        },
+        "isOfficialBot": {
+            "title": "Isofficialbot",
+            "type": "boolean"
+        },
+        "isApiBot": {
+            "title": "Isapibot",
+            "type": "boolean"
+        },
+        "isDown": {
+            "title": "Isdown",
+            "type": "boolean"
+        },
+        "supportsFileUpload": {
+            "title": "Supportsfileupload",
+            "type": "boolean"
+        },
+        "baseModelDisplayName": {
+            "title": "Basemodeldisplayname",
+            "type": "string"
+        },
+        "allowsClearContext": {
+            "title": "Allowsclearcontext",
+            "type": "boolean"
+        },
+        "introduction": {
+            "title": "Introduction",
+            "type": "string"
+        },
+        "conversationStarters": {
+            "items": {
+                "type": "string"
+            },
+            "title": "Conversationstarters",
+            "type": "array"
+        },
+        "serverBotDependenciesLimitsString": {
+            "title": "Serverbotdependencieslimitsstring",
+            "type": "null"
+        },
+        "messageTimeoutSecs": {
+            "title": "Messagetimeoutsecs",
+            "type": "integer"
+        },
+        "isPrivateBot": {
+            "title": "Isprivatebot",
+            "type": "boolean"
+        },
+        "isLimitedAccess": {
+            "title": "Islimitedaccess",
+            "type": "boolean"
+        },
+        "shouldHideLimitedAccessTag": {
+            "title": "Shouldhidelimitedaccesstag",
+            "type": "boolean"
+        },
+        "mayHaveSuggestedReplies": {
+            "title": "Mayhavesuggestedreplies",
+            "type": "boolean"
+        },
+        "supportsResend": {
+            "title": "Supportsresend",
+            "type": "boolean"
+        },
+        "hasWelcomeTopics": {
+            "title": "Haswelcometopics",
+            "type": "boolean"
+        }
     },
-    "bot_id": {
-      "type": "integer"
-    },
-    "handle": {
-      "type": "string"
-    },
-    "prompt": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id",
-    "poe_id",
-    "bot_id",
-    "handle",
-    "prompt"
-  ]
+    "required": [
+        "__isNode",
+        "id",
+        "botId",
+        "handle",
+        "displayName",
+        "isSystemBot",
+        "deletionState",
+        "image",
+        "limitedAccessType",
+        "canUserAccessBot",
+        "followerCount",
+        "monthlyActiveUsers",
+        "creator",
+        "description",
+        "poweredBy",
+        "viewerIsFollower",
+        "shouldHide",
+        "shareLink",
+        "promptPlaintext",
+        "viewerIsCreator",
+        "isEligibleForLoggedOutUsage",
+        "model",
+        "nickname",
+        "uploadFileSizeLimit",
+        "allowsImageAttachments",
+        "messageLimit",
+        "messageUsageLimit",
+        "isOfficialBot",
+        "isApiBot",
+        "isDown",
+        "supportsFileUpload",
+        "baseModelDisplayName",
+        "allowsClearContext",
+        "introduction",
+        "conversationStarters",
+        "serverBotDependenciesLimitsString",
+        "messageTimeoutSecs",
+        "isPrivateBot",
+        "isLimitedAccess",
+        "shouldHideLimitedAccessTag",
+        "mayHaveSuggestedReplies",
+        "supportsResend",
+        "hasWelcomeTopics"
+    ],
+    "title": "FullBotData",
+    "type": "object"
 }

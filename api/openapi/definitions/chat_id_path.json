@@ -1,7 +1,0 @@
-{
-  "name": "chatId",
-  "in": "path",
-  "description": "Chat ID",
-  "required": true,
-  "type": "integer"
-}

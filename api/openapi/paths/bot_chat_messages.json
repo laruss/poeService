@@ -1,74 +1,157 @@
 {
-  "patch": {
-    "tags": [
-      "Chat By ID"
-    ],
-    "summary": "Update chat messages from Poe API",
-    "description": "Update chat messages from Poe API",
-    "produces": [
-      "application/json"
-    ],
-    "parameters": [
-      {
-        "$ref": "../definitions/bot_name_path.json"
-      },
-      {
-        "$ref": "../definitions/chat_id_path.json"
-      },
-      {
-        "name": "limit",
-        "in": "query",
-        "description": "Limit of messages to fetch",
-        "required": false,
-        "type": "integer",
-        "format": "int32"
-      }
-    ],
-    "responses": {
-      "204": {
-        "description": "Chat updated"
-      },
-      "403": {
-        "description": "Poe API key is not set"
-      },
-      "404": {
-        "description": "Bot not found"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
+    "get": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Get chat messages from Poe API",
+        "description": "Get chat messages from Poe API",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "name": "limit",
+                "in": "query",
+                "description": "Limit of messages to fetch",
+                "required": false,
+                "type": "integer",
+                "format": "int32"
+            },
+            {
+                "name": "offset",
+                "in": "query",
+                "description": "Offset of messages to fetch",
+                "required": false,
+                "type": "integer",
+                "format": "int32"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Chat messages",
+                "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../definitions/bot_chat_message.json"
+                    }
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
+    },
+    "patch": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Update chat messages from Poe API",
+        "description": "Update chat messages from Poe API",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "name": "limit",
+                "in": "query",
+                "description": "Limit of messages to fetch",
+                "required": false,
+                "type": "integer",
+                "format": "int32"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Chat messages",
+                "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../definitions/bot_chat_message.json"
+                    }
+                }
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
+    },
+    "delete": {
+        "tags": [
+            "Chat By Code"
+        ],
+        "summary": "Delete chat messages from Poe API",
+        "description": "Delete chat messages from Poe API and remove messages from database",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [
+            {
+                "$ref": "../definitions/bot_name_path.json"
+            },
+            {
+                "$ref": "../definitions/chat_code_path.json"
+            },
+            {
+                "name": "data",
+                "in": "body",
+                "description": "Chat messages to delete",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message_ids": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Message ID",
+                                "example": 123456
+                            }
+                        }
+                    },
+                    "required": [
+                        "message_ids"
+                    ]
+                }
+            }
+        ],
+        "responses": {
+            "204": {
+                "description": "Chat messages deleted"
+            },
+            "400": {
+                "$ref": "../openapi.json#/responses/400"
+            },
+            "403": {
+                "$ref": "../openapi.json#/responses/403"
+            },
+            "500": {
+                "$ref": "../openapi.json#/responses/500"
+            }
+        }
     }
-  },
-  "put": {
-    "tags": [
-      "Chat By ID"
-    ],
-    "summary": "Init chat messages from Poe API",
-    "description": "Init chat messages from Poe API",
-    "produces": [
-      "application/json"
-    ],
-    "parameters": [
-      {
-        "$ref": "../definitions/bot_name_path.json"
-      },
-      {
-        "$ref": "../definitions/chat_id_path.json"
-      }
-    ],
-    "responses": {
-      "204": {
-        "description": "Chat initialized"
-      },
-      "403": {
-        "description": "Poe API key is not set"
-      },
-      "404": {
-        "description": "Bot not found"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
-    }
-  }
 }

@@ -1,6 +1,7 @@
 import functools
-
 import flask
+
+from pydantic import ValidationError
 
 from .exceptions import PoeConnectionError, PoeBotError
 from .utils import not_found_response, response
@@ -30,6 +31,8 @@ def handle_errors(func):
         except PoeConnectionError as e:
             return response({"error": str(e)}, status=500)
         except PoeBotError as e:
+            return response({"error": str(e)}, status=400)
+        except ValidationError as e:
             return response({"error": str(e)}, status=400)
 
     return wrapper_error_handler

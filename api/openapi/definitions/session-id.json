@@ -1,0 +1,7 @@
+{
+    "name": "session-id",
+    "in": "header",
+    "description": "Session ID from Poe App",
+    "required": true,
+    "type": "string"
+}

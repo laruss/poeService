@@ -1,97 +1,46 @@
+from typing import Optional
+
 from flask import Response
 
 from api.controllers.base import BC
 from api.models.bot import Bot
 from api.models.bot.chat import Chat
-from api.poe_agent import agent
 from api.utils.errorhandlers import handle_errors
+from api.validators import DeleteMessagesValidator, SendMessageValidator
 
 
-class ChatController(BC):
+class ChatController(BC[Chat]):
     model = Chat
 
     @handle_errors
-    def init_all_chats(self, bot_name: str):
-        chats = agent.init_chats(bot_name)
+    def get_all_local_chats(self, bot_name: str):
+        bot = Bot.get_by_bot_name(bot_name)
+        chats = Chat.objects(botId=bot.botId)
 
-        return self.response200([chat.as_json() for chat in chats])
-
-    @handle_errors
-    def get_all_chats(self, bot_name: str):
-        bot = Bot.get_by_filter({"handle": bot_name})
-        if not bot:
-            return self.response404(data={"error": f"Bot {bot_name} doesn't exist in DB"})
-        chats = Chat.objects({"bot_id": bot.id})
-
-        return self.response200([chat.as_json() for chat in chats])
+        return self.response200([chat.model_dump(exclude={"messages"}) for chat in chats])
 
     @handle_errors
-    def update_all_chats_from_poe(self, bot_name: str):
-        return self.update_one_chat_from_poe(bot_name)
+    def update_all_chats_from_api(self, bot_name: str):
+        bot = Bot.get_by_bot_name(bot_name)
+        return self.response200([chat.model_dump(exclude={"messages"}) for chat in Chat.get_all_from_api(bot.handle)])
 
     @handle_errors
-    def delete_all_chats(self, bot_name: str, locally: bool = True):
-        bot = Bot.get_by_filter({"handle": bot_name})
-        if not bot:
-            return self.response404(data={"error": f"Bot {bot_name} doesn't exist in DB"})
-        chats = Chat.objects({"bot_id": bot.id})
-        for chat in chats:
-            if not locally:
-                agent.delete_chat(bot_name, chat.chat_id)
-            chat.delete()
+    def get_chat(self, bot_name: str, chat_code: str):
+        Bot.get_by_bot_name(bot_name)
+        chat = Chat.get_by_chat_code(chat_code)
 
-        return self.response200(data={"message": f"All chats for bot {bot_name} were deleted"
-                                                 f"{' locally' if locally else ''}"})
+        return self.response200(chat.model_dump(exclude={"messages"}))
 
     @handle_errors
-    def get_one_chat(self, bot_name: str, chat_id: int):
-        bot = Bot.get_by_filter({"handle": bot_name})
-        if not bot:
-            return self.response404(data={"error": f"Bot {bot_name} doesn't exist in DB"})
-        chat = Chat.get_by_filter({"chat_id": chat_id})
-        if not chat:
-            return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
-
-        return self.response200(data=chat.as_json())
+    def update_chat_from_api(self, bot_name: str, chat_code: str):
+        Bot.get_by_bot_name(bot_name)
+        return self.response200(Chat.get_from_api(chat_code).model_dump(exclude={"messages"}))
 
     @handle_errors
-    def update_one_chat_from_poe(self, bot_name: str, chat_id: int = None):
-        bot = Bot.get_by_filter({"handle": bot_name})
-        if not bot:
-            return self.response404(data={"error": f"Bot {bot_name} doesn't exist in DB"})
+    def delete_chat(self, bot_name: str, chat_code: str):
+        Bot.get_by_bot_name(bot_name)
+        Chat.get_by_chat_code(chat_code).delete_from_api()
 
-        chats = agent.init_chats(bot_name, update_if_exists=True)
-
-        if chat_id:
-            chat = next((chat for chat in chats if chat.chat_id == chat_id), None)
-            return self.response200(data=chat.as_json())
-
-        return self.response200(data=[chat.as_json() for chat in chats])
-
-    @handle_errors
-    def delete_one_chat(self, bot_name: str, chat_id: int, locally: bool = True):
-        bot = Bot.get_by_filter({"handle": bot_name})
-        if not bot:
-            return self.response404(data={"error": f"Bot {bot_name} doesn't exist in DB"})
-        chat = Chat.get_by_filter({"chat_id": chat_id})
-        if not chat:
-            return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
-        if not locally:
-            agent.delete_chat(bot_name, chat.chat_id)
-        chat.delete()
-
-        return self.response200(data={"message": f"Chat {chat_id} for bot {bot_name} was deleted"
-                                                 f"{' locally' if locally else ''}"})
-    
-    @handle_errors
-    def init_chat_messages(self, bot_name: str, chat_id: int):
-        chat = Chat.get_by_filter({"chat_id": chat_id})
-        if not chat:
-            return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
-        
-        messages = agent.get_chat_messages(chat_id, get_all=True)
-        chat.update(messages=messages)
-        
         return self.response204()
 
     @staticmethod
@@ -101,65 +50,55 @@ class ChatController(BC):
         return slice_[::-1]
 
     @handle_errors
-    def get_messages(self, bot_name: str, chat_id: int, limit: int = 1000, offset: int = 0):
-        chat = Chat.get_by_filter({"chat_id": chat_id})
-        if not chat:
-            return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
+    def get_messages(self, bot_name: str, chat_code: str, count: int = 100, offset: int = 0):
+        Bot.get_by_bot_name(bot_name)
+        chat = Chat.get_by_chat_code(chat_code)
+        messages = chat.get_messages(offset, count)
 
-        if not chat.messages:
-            self.init_chat_messages(bot_name, chat_id)
-
-        return self.response200(data={"messages": self._reverse_slice(chat.messages, offset, limit)})
-
-    def internal_update_chat_messages(self, bot_name: str, chat_id: int, limit: int):
-        chat = Chat.get_by_filter({"chat_id": chat_id})
-        if not chat:
-            return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
-
-        if not chat.messages:
-            return self.init_chat_messages(bot_name, chat_id)
-
-        poe_messages = agent.get_chat_messages(chat_id, count=limit)
-        poe_messages_ids = [mes["messageId"] for mes in poe_messages]
-        chat_messages_ids = [mes["messageId"] for mes in chat.messages]
-        for i, mes_id in enumerate(chat_messages_ids):
-            if mes_id not in poe_messages_ids:
-                chat.messages.pop(i)
-            else:
-                poe_message = poe_messages[poe_messages_ids.index(mes_id)]
-                chat.messages[i].update(**poe_message)
-        for i, mes_id in enumerate(poe_messages_ids):
-            if mes_id not in chat_messages_ids:
-                chat.messages.append(poe_messages[i])
-
-        chat.save()
+        return self.response200([mes.model_dump(by_alias=True) for mes in messages])
 
     @handle_errors
-    def update_chat_messages(self, bot_name: str, chat_id: int, limit: int):
-        self.internal_update_chat_messages(bot_name, chat_id, limit)
-        return self.response204()
+    def update_messages(self, bot_name: str, chat_code: str, limit: int):
+        Bot.get_by_bot_name(bot_name)
+        chat = Chat.get_by_chat_code(chat_code)
+        messages = chat.get_messages_from_api(limit)
+
+        return self.response200([mes.model_dump(by_alias=True) for mes in messages])
+
+    @staticmethod
+    def _send_message(bot_name: str, message: str, chat_code: Optional[str] = None):
+        for chunk in Chat.send_message(bot_name, message, chat_code):
+            yield chunk.model_dump(by_alias=True)
 
     @handle_errors
-    def send_message(self, bot_name: str, message: str, chat_id: int = None):
-        if chat_id is not None:
-            chat = Chat.get_by_filter({"chat_id": chat_id})
-            if not chat:
-                return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
+    def send_message(self, bot_name: str, data: Optional[dict], chat_code: Optional[str] = None):
+        Bot.get_by_bot_name(bot_name)
+        if not data:
+            return self.response400("No message provided")
+        model = SendMessageValidator(**data)
+        if chat_code:
+            Chat.get_by_chat_code(chat_code)
 
-        return Response(agent.send_message(bot_name=bot_name, message=message, chat_id=chat_id), mimetype='text/plain')
+        return self.stream_response(self._send_message(bot_name, model.message, chat_code))
 
-    def retry_message(self, bot_name: str, chat_id: int):
-        chat = Chat.get_by_filter({"chat_id": chat_id})
-        if not chat:
-            return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
+    @staticmethod
+    def _regen_message(chat: Chat):
+        for chunk in chat.regenerate_message():
+            yield chunk.model_dump(by_alias=True)
 
-        return Response(agent.retry_message(chat.chat_code), mimetype='text/plain')
+    @handle_errors
+    def regenerate_message(self, bot_name: str, chat_code: str):
+        Bot.get_by_bot_name(bot_name)
+        chat = Chat.get_by_chat_code(chat_code)
 
-    def delete_message(self, chat_id: int, message_id: int):
-        chat = Chat.get_by_filter({"chat_id": chat_id})
-        if not chat:
-            return self.response404(data={"error": f"Chat {chat_id} doesn't exist in DB"})
+        return self.stream_response(self._regen_message(chat))
 
-        agent.delete_messages(message_id)
+    @handle_errors
+    def delete_messages(self, bot_name: str, chat_code: str, data: Optional[dict]):
+        if not data:
+            return self.response400("No message_ids provided")
+        model = DeleteMessagesValidator(**data)
+        Bot.get_by_bot_name(bot_name)
+        Chat.get_by_chat_code(chat_code).delete_messages_from_api(*model.message_ids)
 
         return self.response204()

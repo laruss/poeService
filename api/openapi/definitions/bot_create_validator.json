@@ -1,0 +1,82 @@
+{
+    "properties": {
+        "handle": {
+            "title": "Handle",
+            "type": "string"
+        },
+        "prompt": {
+            "title": "Prompt",
+            "type": "string"
+        },
+        "base_model": {
+            "title": "Base Model",
+            "type": "string"
+        },
+        "display_name": {
+            "type": "string",
+            "title": "Display Name"
+        },
+        "description": {
+            "type": "string",
+            "default": "",
+            "title": "Description"
+        },
+        "intro_message": {
+            "type": "string",
+            "default": "",
+            "title": "Intro Message"
+        },
+        "api_key": {
+            "type": "string",
+            "title": "Api Key"
+        },
+        "custom_message_limit": {
+            "type": "integer",
+            "title": "Custom Message Limit"
+        },
+        "is_api_bot": {
+            "type": "boolean",
+            "default": false,
+            "title": "Is Api Bot"
+        },
+        "api_url": {
+            "type": "string",
+            "title": "Api Url"
+        },
+        "is_prompt_public": {
+            "type": "boolean",
+            "default": true,
+            "title": "Is Prompt Public"
+        },
+        "profile_picture_url": {
+            "type": "string",
+            "title": "Profile Picture Url"
+        },
+        "has_markdown_rendering": {
+            "type": "boolean",
+            "default": true,
+            "title": "Has Markdown Rendering"
+        },
+        "has_suggested_replies": {
+            "type": "boolean",
+            "default": false,
+            "title": "Has Suggested Replies"
+        },
+        "is_private": {
+            "type": "boolean",
+            "default": true,
+            "title": "Is Private"
+        },
+        "temperature": {
+            "type": "integer",
+            "title": "Temperature"
+        }
+    },
+    "required": [
+        "handle",
+        "prompt",
+        "base_model"
+    ],
+    "title": "CreateBotValidator",
+    "type": "object"
+}

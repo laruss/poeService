@@ -1,9 +1,43 @@
+from __future__ import annotations
+
 import functools
 import logging
 
-from pydantic_mongo import PydanticMongo
+from flask_pymongo import PyMongo
+from poeagent.agent import PoeAgent
 
-mongo = PydanticMongo()
+from api.utils.exceptions import PoeConnectionError
+
+mongo = PyMongo()
+
+
+class Poe:
+    _agent: PoeAgent = None
+    _token: str = None
+
+    @property
+    def agent(self) -> PoeAgent:
+        if not self._agent:
+            if not self._token:
+                raise PoeConnectionError("Token is not set")
+            self._agent = PoeAgent(self._token)
+
+        return self._agent
+
+    @property
+    def is_connected(self) -> bool:
+        return self._agent and self._agent.is_connected
+
+    def connect(self, token: str = None) -> Poe:
+        self._token = token or self._token
+        if not self._token:
+            raise PoeConnectionError("Token is not set")
+        self._agent = PoeAgent(token)
+
+        return self
+
+
+poe = Poe()
 
 
 def autolog(custom_text: str):

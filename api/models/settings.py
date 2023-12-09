@@ -1,15 +1,30 @@
 from __future__ import annotations
 
-from typing import Optional
+import logging
+from typing import Optional, List
 
-from api.models.base import BaseAppModel
+from poeagent.models.settings_data import Limits
+from pydantic import BaseModel
+
+from .base import BaseAppModel
+from ..extensions import poe
+
+logger = logging.getLogger(__name__)
+
+
+class ApiRefreshPeriod(BaseModel):
+    pass
 
 
 class Settings(BaseAppModel):
     __collection_name__ = 'settings'
 
-    api_token: Optional[str] = None
+    api_refresh_period: ApiRefreshPeriod = ApiRefreshPeriod()
 
     @classmethod
     def get(cls) -> Settings:
-        return cls.get_by_filter({}) or cls().save()
+        return cls.get_by_filter(**{}) or cls().save()
+
+    def get_limits(self) -> List[Limits]:
+        settings = self.request_with_retries(poe.agent.get_settings)
+        return [edge.node for edge in settings.data.viewer.messageLimitsConnection.edges]

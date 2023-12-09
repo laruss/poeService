@@ -1,0 +1,7 @@
+{
+  "name": "chatCode",
+  "in": "path",
+  "description": "Chat Code",
+  "required": true,
+  "type": "string"
+}

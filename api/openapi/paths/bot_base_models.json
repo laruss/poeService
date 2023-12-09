@@ -1,10 +1,10 @@
 {
     "get": {
         "tags": [
-            "Settings"
+            "Bots"
         ],
-        "summary": "Get settings (current limits for bots)",
-        "description": "Get current limits for bots from Poe api",
+        "summary": "Get bot's base models",
+        "description": "Get base models for bot creation",
         "produces": [
             "application/json"
         ],
@@ -15,9 +15,12 @@
         ],
         "responses": {
             "200": {
-                "description": "successful operation",
+                "description": "Base models",
                 "schema": {
-                    "$ref": "../definitions/settings.json"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             },
             "403": {
